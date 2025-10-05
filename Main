@@ -1,0 +1,16 @@
+import express from "express";
+const app = express();
+app.use(express.json());
+
+let list = [];
+
+app.get("/", (req, res) => res.json(list));
+
+app.post("/add", (req, res) => {
+  const { item } = req.body;
+  if (!item) return res.status(400).send("No item");
+  list.push(item);
+  res.send(`Added: ${item}`);
+});
+
+app.listen(3000, () => console.log("List API running"));
